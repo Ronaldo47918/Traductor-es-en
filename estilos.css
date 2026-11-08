@@ -186,12 +186,12 @@ html[data-bs-theme="light"] body.bg-body {
     animation: particleBurst 1s ease-out infinite;
 }
 
-.particle:nth-child(1) { left: 20%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 40%; animation-delay: 0.2s; }
-.particle:nth-child(3) { left: 60%; animation-delay: 0.4s; }
-.particle:nth-child(4) { left: 80%; animation-delay: 0.6s; }
-.particle:nth-child(5) { left: 30%; animation-delay: 0.8s; }
-.particle:nth-child(6) { left: 70%; animation-delay: 1s; }
+.particle:nth-child(1) { left: 20%; --particle-x: -30px; --particle-y: -35px; animation-delay: 0s; }
+.particle:nth-child(2) { left: 40%; --particle-x: -18px; --particle-y: -45px; animation-delay: 0.2s; }
+.particle:nth-child(3) { left: 60%; --particle-x: 12px; --particle-y: -42px; animation-delay: 0.4s; }
+.particle:nth-child(4) { left: 80%; --particle-x: 30px; --particle-y: -30px; animation-delay: 0.6s; }
+.particle:nth-child(5) { left: 30%; --particle-x: -25px; --particle-y: -25px; animation-delay: 0.8s; }
+.particle:nth-child(6) { left: 70%; --particle-x: 25px; --particle-y: -38px; animation-delay: 1s; }
 
 .slider:hover .toggle-orb {
     filter: brightness(1.2);
@@ -209,10 +209,6 @@ html[data-bs-theme="light"] body.bg-body {
 
 .cosmic-toggle:hover .slider {
     transform: rotateX(10deg) rotateY(10deg);
-}
-
-.cosmic-toggle:hover .toggle-orb {
-    transform: translateZ(10px);
 }
 
 .toggle:checked + .slider::after {
@@ -240,7 +236,7 @@ html[data-bs-theme="light"] body.bg-body {
 
 @keyframes particleBurst {
     0% { opacity: 1; transform: translate(0, 0) scale(1); }
-    100% { opacity: 0; transform: translate(calc(cos(var(--angle, 45deg)) * 50px), calc(sin(var(--angle, 45deg)) * 50px)) scale(0); }
+    100% { opacity: 0; transform: translate(var(--particle-x, 0), var(--particle-y, -42px)) scale(0); }
 }
 
 @keyframes cosmosPan {
