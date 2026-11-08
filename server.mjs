@@ -34,6 +34,7 @@ app.post("/api/translate", async (request, response, next) => {
     }
 
     try {
+        console.log("Solicitud de traducción recibida.");
         const translation = await traducir(text.trim());
         return response.status(200).json({ translation });
     } catch (error) {
@@ -48,7 +49,7 @@ app.use("/api", (_request, response) => {
 app.use(express.static(currentDirectory));
 
 app.use((error, _request, response, _next) => {
-    console.error("Error en el servidor:", error.message);
+    console.error("Error en el servidor:", error);
 
     if (response.headersSent) {
         return;

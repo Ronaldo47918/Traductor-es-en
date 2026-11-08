@@ -9,7 +9,7 @@ export async function cargarModelo() {
         traductor = await pipeline(
             "translation",
             "Xenova/opus-mt-es-en",
-            { dtype: "fp32" }
+            { dtype: "q8" }
         );
 
     }

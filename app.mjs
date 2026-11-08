@@ -48,10 +48,23 @@ btnTraducir.addEventListener("click", async () => {
             body: JSON.stringify({ text: texto }),
         });
 
-        const data = await response.json();
+        const responseText = await response.text();
+        let data = {};
+
+        if (responseText.trim() !== "") {
+            try {
+                data = JSON.parse(responseText);
+            } catch {
+                throw new Error("El servidor devolvió una respuesta inválida. Revisa los registros del servicio en Render.");
+            }
+        }
 
         if (!response.ok) {
-            throw new Error(data.error || "No fue posible traducir el texto.");
+            throw new Error(data.error || `El servidor respondió con el error HTTP ${response.status}. Puede haberse reiniciado por falta de recursos; revisa los registros en Render.`);
+        }
+
+        if (typeof data.translation !== "string") {
+            throw new Error("El servidor respondió sin una traducción. Revisa los registros del servicio en Render.");
         }
 
         textoSalida.value = data.translation;
