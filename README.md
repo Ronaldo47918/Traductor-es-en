@@ -21,7 +21,7 @@ Aplicación web universitaria para traducir texto del español al inglés. El fr
 ## Requisitos
 
 - Node.js 20 o posterior y npm.
-- Conexión a Internet para descargar Bootstrap desde su CDN y permitir la descarga inicial del modelo de traducción.
+- Conexión a Internet para descargar Bootstrap y permitir la descarga inicial del modelo de traducción.
 
 ## Instalación y ejecución local
 
@@ -82,12 +82,35 @@ Si el texto está vacío, supera los 5000 caracteres o la solicitud no es válid
 
 ## Diagrama de componentes
 
-El diagrama se añadirá cuando se complete la arquitectura final del proyecto.
+El diagrama de componentes muestra las vistas y módulos del navegador, el almacenamiento del tema, las rutas de Express, el modelo de traducción y el flujo de petición y respuesta.
+
+![Diagrama de componentes del traductor](diagrama%20de%20componentes.png)
 
 ## Despliegue
 
-La aplicación todavía no tiene una URL pública. El servidor está preparado para usar el puerto asignado por la plataforma mediante `PORT`; se documentará aquí el enlace y la configuración cuando se realice el despliegue.
+La aplicación está desplegada en [Render](https://traductor-es-en-kf3e.onrender.com/). En este proyecto, Render sirve tanto el frontend como el backend desde un único servicio: Express entrega los archivos estáticos de la interfaz y también atiende las rutas `/api`. Se eligió esta arquitectura porque la aplicación es pequeña y no necesita separar el frontend del backend; además, ambos comparten el mismo origen, por lo que el navegador no requiere una configuración CORS entre servicios. El servidor usa la variable de entorno `PORT` proporcionada por la plataforma.
+
+El modelo se carga con la variante cuantizada `q8`, que reduce el uso de memoria y facilita su ejecución en el servicio.
+
+## Auditoría Lighthouse
+
+Se evaluó la aplicación publicada en Render en los modos móvil y escritorio. Los resultados fueron:
+
+| Dispositivo | Rendimiento | Accesibilidad | Buenas prácticas | SEO |
+| --- | ---: | ---: | ---: | ---: |
+| Móvil | 98 | 100 | 98 | 90 |
+| Escritorio | 95 | 100 | 98 | 90 |
+
+Los informes completos se encuentran en:
+
+- [Informe Lighthouse móvil](lighthouse/test%20mobile.pdf)
+- [Informe Lighthouse de escritorio](lighthouse/test%20escritorio.pdf)
+
+Como mejora de rendimiento, el modelo se carga con la variante cuantizada `q8` para reducir su consumo de memoria. También se mejoró el interruptor animado de tema claro/oscuro para que sus efectos sean más compatibles, fue una optimización de rendimiento.
+
+Debido a las puntuaciones altas, no se realizaron otras optimizaciones de rendimiento después de la auditoría. El SEO obtuvo 90 puntos, por lo que queda como un aspecto que podría revisarse en una mejora futura.
 
 ## Autoría y créditos
 
-Proyecto académico de UNISANGIL. Completar con los nombres de los integrantes antes de entregar.
+Proyecto académico de UNISANGIL.
+Ronaldo Albeiro Velasco Medina.
